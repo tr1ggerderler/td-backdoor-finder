@@ -5,6 +5,7 @@ import re
 
 search_pattern = re.compile(r'[\w\d]{50,}')
 find_pattern = ["PerformHttpRequest", "GetConvar"]  # Aratılacak şüpheli fonksiyonlar
+
 ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"] # Görmezden gelinecek dizinler
 ignore_folders = ["example-script"]  # Görmezden gelinecek klasör adları
 output_file = "results.txt"  # Sonuçların yazılacağı dosya
