@@ -1,7 +1,7 @@
 import os
 import re
 
-# Author: triggerderler
+# Author: triggerderler 
 
 search_pattern = re.compile(r'[\w\d]{50,}')
 ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"]
