@@ -5,7 +5,7 @@ import re
 
 search_pattern = re.compile(r'[\w\d]{50,}')
 ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"]
-ignore_folders = ["ornek-script"]  # Görmezden gelinecek klasör adları
+ignore_folders = ["example-script"]  # Görmezden gelinecek klasör adları
 http_request_pattern = "PerformHttpRequest"
 output_file = "results.txt"  # Sonuçların yazılacağı dosya adı
 
