@@ -1,5 +1,5 @@
 ## Anti Backdoor Sistemi
-Scriptlerde backdoor olup olmadığını kontrol edebilmen için kolaylık sağlayan bir kod.
+Scriptlerde backdoor olup olmadığını kontrol edebilmen için kolaylık sağlayan bir sistem.
 ## Dependencies 
 [Python ](https://www.python.org/)
 
