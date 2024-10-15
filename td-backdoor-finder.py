@@ -5,7 +5,6 @@ import re
 
 search_pattern = re.compile(r'[\w\d]{50,}')
 find_pattern = ["PerformHttpRequest", "GetConvar"]  # Aratılacak şüpheli fonksiyonlar
-
 ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"] # Görmezden gelinecek dizinler
 ignore_folders = ["example-script"]  # Görmezden gelinecek klasör adları
 output_file = "results.txt"  # Sonuçların yazılacağı dosya
@@ -33,7 +32,6 @@ def scan_file(file_path):
                 if search_pattern.search(line):
                     results.append(f"Klasör yolu: {folder_path}\nSatırın bulunduğu dosya: {file_name}\nBulunan satır:\n{line.strip()}\n\n")
                 
-                # Birden fazla http_request_pattern kontrolü
                 if any(pattern in line for pattern in find_pattern):
                     results.append(f"Klasör yolu: {folder_path}\nSatırın bulunduğu dosya: {file_name}\nBulunan satır:\n{line.strip()}\n\n")
 
@@ -46,6 +44,8 @@ def scan_directory(directory):
     if not os.path.exists(directory): 
         print(f"Uyarı: Belirtilen dizin bulunamadı: '{directory}'")
         return 
+
+    print("Bu biraz zaman alabilir, lütfen bekleyin...")
 
     all_results = []
     for root, dirs, files in os.walk(directory):
@@ -61,7 +61,7 @@ def scan_directory(directory):
     write_results(all_results)
 
 if __name__ == "__main__":
-    resource_directory = r"C:\FiveM\server\resources"
+    resource_directory = r"E:\FiveM\revers\server-data\resources"
     scan_directory(resource_directory)
 
-    input("Tarama tamamlandı. Kapatmak için bir tuşa basın...")
+    input("Kapatmak için bir tuşa basın...")
