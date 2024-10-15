@@ -1,4 +1,4 @@
-## Anti Backdoor Sistemi
+## Backdoor Finder
 Scriptlerde backdoor olup olmadığını kontrol edebilmen için kolaylık sağlayan bir sistem.
 ## Dependencies 
 [Python ](https://www.python.org/)
