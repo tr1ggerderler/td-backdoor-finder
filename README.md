@@ -5,6 +5,9 @@ Scriptlerde backdoor olup olmadığını kontrol edebilmen için kolaylık sağl
 
 ## Usage
 ▪ Python Kur
+
 ▪ Kodun içerisindeki resource_directory kısmını kendi klasörüne göre entegre et.
+
 ▪ ignore_patterns kısmına aratmasını istemediğin kod satırını ekle. (Optional)
+
 ▪ ignore_folders kısmına aratmasını istemediğin klasörü ekle. (Optional)
