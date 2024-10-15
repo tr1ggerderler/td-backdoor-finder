@@ -1,13 +1,13 @@
 import os
 import re
 
-# Author: triggerderler 
+# Author: triggerderler
 
 search_pattern = re.compile(r'[\w\d]{50,}')
-ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"]
-ignore_folders = ["example-script"]  # Görmezden gelinecek klasör adları
-http_request_pattern = "PerformHttpRequest"
-output_file = "results.txt"  # Sonuçların yazılacağı dosya adı
+find_pattern = ["PerformHttpRequest", "GetConvar"]  # Aratılacak şüpheli fonksiyonlar
+ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"] # Görmezden gelinecek dizinler
+ignore_folders = ["uniq-deathscreen"]  # Görmezden gelinecek klasör adları
+output_file = "results.txt"  # Sonuçların yazılacağı dosya
 
 def write_results(results):
     try:
@@ -32,7 +32,8 @@ def scan_file(file_path):
                 if search_pattern.search(line):
                     results.append(f"Klasör yolu: {folder_path}\nSatırın bulunduğu dosya: {file_name}\nBulunan satır:\n{line.strip()}\n\n")
                 
-                if http_request_pattern in line:
+                # Birden fazla http_request_pattern kontrolü
+                if any(pattern in line for pattern in find_pattern):
                     results.append(f"Klasör yolu: {folder_path}\nSatırın bulunduğu dosya: {file_name}\nBulunan satır:\n{line.strip()}\n\n")
 
     except Exception as e:
@@ -59,7 +60,7 @@ def scan_directory(directory):
     write_results(all_results)
 
 if __name__ == "__main__":
-    resource_directory = r"C:\FiveM\server\resources"
+    resource_directory = r"E:\FiveM\revers\server-data\resources"
     scan_directory(resource_directory)
 
     input("Tarama tamamlandı. Kapatmak için bir tuşa basın...")
