@@ -59,7 +59,7 @@ def scan_directory(directory):
     write_results(all_results)
 
 if __name__ == "__main__":
-    resource_directory = r"E:\FiveM\revers\server-data\resources"
+    resource_directory = r"C:\FiveM\server-data\resources"
     scan_directory(resource_directory)
 
     input("Tarama tamamlandı. Kapatmak için bir tuşa basın...")
