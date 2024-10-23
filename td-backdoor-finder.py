@@ -1,7 +1,5 @@
 import os
 import re
-import urllib.request
-import json
 
 # Author: triggerderler
 
@@ -12,10 +10,6 @@ find_pattern = ["PerformHttpRequest"]  # Aratılacak şüpheli fonksiyonlar
 ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"]  # Görmezden gelinecek dizinler
 ignore_folders = ["bob74_ipl"]  # Görmezden gelinecek klasör adları
 output_file = "results.txt"  # Sonuçların yazılacağı dosya
-
-CURRENT_VERSION = "1.0.0"
-REPO_OWNER = "triggerderler"
-REPO_NAME = "td-backdoor-finder"
 
 def write_results(results):
     try:
@@ -74,33 +68,8 @@ def scan_directory(directory):
 
     write_results(all_results)
 
-def check_version():
-    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases/latest"
-    try:
-        with urllib.request.urlopen(url) as response:
-            data = response.read()
-            latest_release = json.loads(data)
-            latest_version = latest_release["tag_name"]
-            print(f"En son sürüm: {latest_version}")
-            if latest_version != CURRENT_VERSION:
-                print(f"Yeni sürüm mevcut: {latest_version}. Lütfen güncelleyin.")
-            else:
-                print("Yazılımınız güncel.")
-    except urllib.error.URLError as e:
-        print(f"Sürüm kontrolü başarısız: {e}")
-    except Exception as e:
-        print(f"Beklenmedik bir hata oluştu: {e}")
-
 if __name__ == "__main__":
-    try:
-        check_version()  # Sürüm kontrolünü çalıştır
-    except Exception as e:
-        print(f"Sürüm kontrolü sırasında hata oluştu: {e}")
-    
     resource_directory = r"C:\FiveM\server\server-data\resources"
-    try:
-        scan_directory(resource_directory)
-    except Exception as e:
-        print(f"Dizin tarama sırasında hata oluştu: {e}")
+    scan_directory(resource_directory)
 
     input("Kapatmak için bir tuşa basın...")
