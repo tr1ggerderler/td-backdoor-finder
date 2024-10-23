@@ -14,7 +14,7 @@ output_file = "results.txt"  # Sonuçların yazılacağı dosya
 
 CURRENT_VERSION = "1.0.0"
 REPO_OWNER = "triggerderler"
-REPO_NAME = "td-backdoor-finder"
+REPO_NAME = "my-repo"
 
 def write_results(results):
     try:
@@ -88,7 +88,7 @@ def check_version():
 
 if __name__ == "__main__":
     check_version()  # Sürüm kontrolünü çalıştır
-    resource_directory = r"C:\Users\burak\Desktop\QBcore\server\resources"
+    resource_directory = r"C:\FiveM\server\server-data\resources"
     scan_directory(resource_directory)
 
-    input("Kapatmak için bir tuşa basın...")
+    input("Kapatmak için bir tuşa basın...")  # Program kapanmadan önce bekleme ekledim
