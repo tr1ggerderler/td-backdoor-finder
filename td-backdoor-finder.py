@@ -92,7 +92,7 @@ def check_version():
             print(f"Uyarı: Eski bir versiyon kullanıyorsunuz! Lütfen güncelleyin. (Yerel: {local_version}, Güncel: {github_version})\n")
             print(f"Github: {version_info_url}\n")
         else:
-            print(f"Bilgi: Sürümünüz güncel! {github_version}\n")
+            print(f"Sürümünüz güncel! {github_version}\n")
 
 def get_version():
     try:
