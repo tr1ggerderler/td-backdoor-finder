@@ -12,7 +12,7 @@ ________________________________________________________________________________
 print("Author: triggerderler\n")
 
 
-resource_directory = r"C:\Users\burak\Desktop\QBcore\server\resources" # Hedef klasörünü buraya yazın.
+resource_directory = r"C:\Users\xxxx\Desktop\FiveM\server\resources" # Hedef klasörünü buraya yazın.
 
 find_pattern = ["PerformHttpRequest"]  # Aratılacak şüpheli fonksiyonlar
 ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"]  # Görmezden gelinecek dizinler
