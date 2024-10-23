@@ -1,6 +1,7 @@
 import os
 import re
-import requests
+import urllib.request
+import json
 
 # Author: triggerderler
 
@@ -14,7 +15,7 @@ output_file = "results.txt"  # Sonuçların yazılacağı dosya
 
 CURRENT_VERSION = "1.0.0"
 REPO_OWNER = "triggerderler"
-REPO_NAME = "my-repo"
+REPO_NAME = "td-backdoor-finder"
 
 def write_results(results):
     try:
@@ -76,19 +77,30 @@ def scan_directory(directory):
 def check_version():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases/latest"
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-        latest_version = response.json()["tag_name"]
-        if latest_version != CURRENT_VERSION:
-            print(f"Yeni sürüm mevcut: {latest_version}. Lütfen güncelleyin.")
-        else:
-            print("Yazılımınız güncel.")
-    except requests.exceptions.RequestException as e:
+        with urllib.request.urlopen(url) as response:
+            data = response.read()
+            latest_release = json.loads(data)
+            latest_version = latest_release["tag_name"]
+            print(f"En son sürüm: {latest_version}")
+            if latest_version != CURRENT_VERSION:
+                print(f"Yeni sürüm mevcut: {latest_version}. Lütfen güncelleyin.")
+            else:
+                print("Yazılımınız güncel.")
+    except urllib.error.URLError as e:
         print(f"Sürüm kontrolü başarısız: {e}")
+    except Exception as e:
+        print(f"Beklenmedik bir hata oluştu: {e}")
 
 if __name__ == "__main__":
-    check_version()  # Sürüm kontrolünü çalıştır
+    try:
+        check_version()  # Sürüm kontrolünü çalıştır
+    except Exception as e:
+        print(f"Sürüm kontrolü sırasında hata oluştu: {e}")
+    
     resource_directory = r"C:\FiveM\server\server-data\resources"
-    scan_directory(resource_directory)
+    try:
+        scan_directory(resource_directory)
+    except Exception as e:
+        print(f"Dizin tarama sırasında hata oluştu: {e}")
 
-    input("Kapatmak için bir tuşa basın...")  # Program kapanmadan önce bekleme ekledim
+    input("Kapatmak için bir tuşa basın...")
