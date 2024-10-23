@@ -3,7 +3,7 @@ import json
 
 CURRENT_VERSION = "1.0.0"  # Mevcut sürümünüzü buraya yazın
 REPO_OWNER = "triggerderler"  # Proje sahibi
-REPO_NAME = "my-repo"  # Proje adı
+REPO_NAME = "td-backdoor-finder"  # Proje adı
 
 def check_version():
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases/latest"
