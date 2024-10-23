@@ -1,5 +1,6 @@
 import os
 import re
+import requests
 
 # Author: triggerderler
 
@@ -10,6 +11,10 @@ find_pattern = ["PerformHttpRequest"]  # Aratılacak şüpheli fonksiyonlar
 ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"]  # Görmezden gelinecek dizinler
 ignore_folders = ["bob74_ipl"]  # Görmezden gelinecek klasör adları
 output_file = "results.txt"  # Sonuçların yazılacağı dosya
+
+CURRENT_VERSION = "1.0.0"
+REPO_OWNER = "triggerderler"
+REPO_NAME = "td-backdoor-finder"
 
 def write_results(results):
     try:
@@ -68,8 +73,22 @@ def scan_directory(directory):
 
     write_results(all_results)
 
+def check_version():
+    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases/latest"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        latest_version = response.json()["tag_name"]
+        if latest_version != CURRENT_VERSION:
+            print(f"Yeni sürüm mevcut: {latest_version}. Lütfen güncelleyin.")
+        else:
+            print("Yazılımınız güncel.")
+    except requests.exceptions.RequestException as e:
+        print(f"Sürüm kontrolü başarısız: {e}")
+
 if __name__ == "__main__":
-    resource_directory = r"C:\FiveM\server\server-data\resources"
+    check_version()  # Sürüm kontrolünü çalıştır
+    resource_directory = r"C:\Users\burak\Desktop\QBcore\server\resources"
     scan_directory(resource_directory)
 
     input("Kapatmak için bir tuşa basın...")
