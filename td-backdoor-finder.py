@@ -4,10 +4,11 @@ import re
 # Author: triggerderler
 
 search_pattern = re.compile(r'[\w\d]{50,}')
-find_pattern = ["PerformHttpRequest", "GetConvar"]  # Aratılacak şüpheli fonksiyonlar
+hex_list_pattern = re.compile(r"(?:'[\da-fA-F]{2}',\s*){10,}")
+find_pattern = ["PerformHttpRequest"]  # Aratılacak şüpheli fonksiyonlar
 
-ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"] # Görmezden gelinecek dizinler
-ignore_folders = ["example-script"]  # Görmezden gelinecek klasör adları
+ignore_patterns = ["discord.com/api/webhooks", "cdn.discordapp.com/attachments"]  # Görmezden gelinecek dizinler
+ignore_folders = ["bob74_ipl"]  # Görmezden gelinecek klasör adları
 output_file = "results.txt"  # Sonuçların yazılacağı dosya
 
 def write_results(results):
@@ -23,18 +24,24 @@ def scan_file(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as file:
             lines = file.readlines()
+            folder_path = os.path.dirname(file_path)
+            file_name = os.path.basename(file_path)
+            file_results = []
+
             for line_num, line in enumerate(lines, 1):
                 if ignore_patterns and any(pattern in line for pattern in ignore_patterns):
                     continue
-                
-                folder_path = os.path.dirname(file_path)
-                file_name = os.path.basename(file_path)
-                
-                if search_pattern.search(line):
-                    results.append(f"Klasör yolu: {folder_path}\nSatırın bulunduğu dosya: {file_name}\nBulunan satır:\n{line.strip()}\n\n")
-                
+
+                if search_pattern.search(line) or hex_list_pattern.search(line):
+                    file_results.append(f"Satır {line_num}: {line.strip()}\n")
+
                 if any(pattern in line for pattern in find_pattern):
-                    results.append(f"Klasör yolu: {folder_path}\nSatırın bulunduğu dosya: {file_name}\nBulunan satır:\n{line.strip()}\n\n")
+                    file_results.append(f"Satır {line_num}: {line.strip()}\n")
+
+            if file_results:
+                results.append(f"Klasör yolu: {folder_path}\nSatırın bulunduğu dosya: {file_name}\n")
+                results.extend(file_results)
+                results.append("\n")
 
     except Exception as e:
         print(f"Dosya taranırken hata oluştu: {file_path}. Hata: {e}")
